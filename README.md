@@ -1,4 +1,4 @@
-# temp
+# demo
 
 ## Project setup
 ```
