@@ -18,9 +18,11 @@ export default {
     HelloWorld
   },
   async created() {
-    // let res = await getMockData_home() // 发起请求
-    let res = await getProxtData()
-    console.log('代理获取到的请求回来的数据为:', res)
+    let res_mock = await getMockData_home() // 发起请求
+    console.log('测试获取到的mock数据', res_mock)
+
+    // let res_proxy = await getProxtData()
+    // console.log('代理获取到的数据为:', res_proxy)
   }
 }
 </script>
