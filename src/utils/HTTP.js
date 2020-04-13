@@ -4,7 +4,8 @@ import { getToken } from '@/utils/auth'
 // create an axios instance
 const request = axios.create({
   // baseURL: process.env.VUE_APP_URL,
-  baseURL: 'https://easy-mock.bookset.io/mock/5e90379d00bfc566e5bb1acb/example',
+  // baseURL: 'https://easy-mock.bookset.io/mock/5e90379d00bfc566e5bb1acb/example', // 测试用地址
+  baseURL: process.env.NODE_ENV === "development" ? '' : process.env.VUE_APP_URL, // 使用代理时，baseURL 在本地服务器设置为空
   // withCredentials: true,  // 跨域请求时发送cookie
   timeout: 60000
 })
@@ -15,27 +16,24 @@ const TOKEN = getToken()  // 获取token
 request.interceptors.request.use(
   config => {
     if (TOKEN) {
-      // let each request carry token
-      // ['X-Token'] is a custom headers key
-      // please modify it according to the actual situation
       config.headers['Authorization'] = TOKEN
     }
 
     // 扩展管理--expands:[]
-    if (config.params && config.params.expandList) {
-      const expandList = config.params.expandList
-      const expands = {}
-      if (expandList && expandList.length) {
-        expandList.map((item, index) => {
-          expands[`expands[${index}]`] = item
-        })
-        config.params = {
-          ...config.params,
-          ...expands
-        }
-      }
-      delete config.params.expandList
-    }
+    // if (config.params && config.params.expandList) {
+    //   const expandList = config.params.expandList
+    //   const expands = {}
+    //   if (expandList && expandList.length) {
+    //     expandList.map((item, index) => {
+    //       expands[`expands[${index}]`] = item
+    //     })
+    //     config.params = {
+    //       ...config.params,
+    //       ...expands
+    //     }
+    //   }
+    //   delete config.params.expandList
+    // }
 
     return config
   },

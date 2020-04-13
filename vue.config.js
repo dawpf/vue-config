@@ -20,6 +20,15 @@ module.exports = {
     overlay: {
       warnings: true,
       errors: true
+    },
+    proxy: {
+      '/api': {
+        target: 'http://t.yushu.im',     //代理的目标地址，这是豆瓣接口地址网址
+        changeOrigin: true,              //是否设置同源，输入是的
+        pathRewrite: {                   //路径重写
+          '/api': ''                     //选择忽略拦截器里面的单词
+        }
+      }
     }
   },
   configureWebpack: {  // 覆盖webpack默认配置的都在这里
