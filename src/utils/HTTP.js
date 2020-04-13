@@ -3,7 +3,7 @@ import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const request = axios.create({
-  // baseURL: process.env.VUE_APP_URL,
+  // baseURL: process.env.VUE_APP_URL,  // 测试 开发环境/生产环境 切换用地址
   baseURL: 'https://easy-mock.bookset.io/mock/5e90379d00bfc566e5bb1acb/example',     // 测试mock用地址
   // baseURL: process.env.NODE_ENV === "development" ? '' : process.env.VUE_APP_URL, // 测试代理跨域用地址
   // withCredentials: true,  // 跨域请求时发送cookie
