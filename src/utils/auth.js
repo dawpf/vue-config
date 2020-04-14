@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'beiwo_pc_token'
+const TokenKey = 'demo_pc_token'
 
 export function getToken() {
   return Cookies.get(TokenKey)

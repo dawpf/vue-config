@@ -1,10 +1,10 @@
-import $HTTP from "@/utils/HTTP.js"
-import Service from "@/utils/service.js"
+import $HTTP from "@u/HTTP.js"
+import Service from "@u/service.js"
 
-export function getMockData_home() {
+export function getMockData() {
   return $HTTP.get(Service.mock)
 }
 
-export function getProxtData() {
-  return $HTTP.get('/api/v2/movie/in_theaters')
+export function getProxtData(params) {
+  return $HTTP.get(Service.proxy, { params })
 }

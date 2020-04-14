@@ -1,39 +1,36 @@
 import axios from 'axios'
 import { getToken } from '@/utils/auth'
 
-// create an axios instance
-const request = axios.create({
-  // baseURL: process.env.VUE_APP_URL,  // 测试 开发环境/生产环境 切换用地址
-  baseURL: 'https://easy-mock.bookset.io/mock/5e90379d00bfc566e5bb1acb/example',     // 测试mock用地址
-  // baseURL: process.env.NODE_ENV === "development" ? '' : process.env.VUE_APP_URL, // 测试代理跨域用地址
-  // withCredentials: true,  // 跨域请求时发送cookie
-  timeout: 60000
-})
+// 如果是代理环境，地址后面拼接上 /api
+let isApi = ''
+if (process.env.VUE_APP_MODE && process.env.VUE_APP_MODE === 'proxy') {
+  isApi = '/api'
+}
 
-const TOKEN = getToken()  // 获取token
+// axios 实例
+const request = axios.create({
+  baseURL: `${process.env.VUE_APP_URL}${isApi}`,  // 开发环境/生产环境/使用代理 切换
+  withCredentials: true,  // 跨域请求时发送cookie
+  timeout: 6000
+})
 
 // 请求拦截器
 request.interceptors.request.use(
   config => {
-    if (TOKEN) {
-      config.headers['Authorization'] = TOKEN
-    }
 
-    // 扩展管理--expands:[]
-    // if (config.params && config.params.expandList) {
-    //   const expandList = config.params.expandList
-    //   const expands = {}
-    //   if (expandList && expandList.length) {
-    //     expandList.map((item, index) => {
-    //       expands[`expands[${index}]`] = item
-    //     })
-    //     config.params = {
-    //       ...config.params,
-    //       ...expands
-    //     }
-    //   }
-    //   delete config.params.expandList
-    // }
+    // config 中包含了所有的请求参数，可以在这里对请求参数进行处理，如：添加默认请求参数，扩展管理等
+
+    // 添加 token
+    if (getToken()) {
+      config.headers['Authorization'] = getToken()
+    }
+    // 添加默认参数
+    if (config.params) {
+      config.params = {
+        apikey: '123456798',
+        ...config.params
+      }
+    }
 
     return config
   },
