@@ -92,7 +92,7 @@ const path = require('path');
 
 module.exports = {
   // 默认输出的路径 就是在当前地址栏后面添加的路径 若为 'ccc' ，则为 http://localhost:8085/ccc/
-  publicPath: '/'
+  publicPath: '/',
   // 不同的环境打不同包名
   outputDir: process.env.NODE_ENV === "development" ? 'devdist' : 'dist', 
   lintOnSave: false,  // 关闭eslint
@@ -308,7 +308,7 @@ export default {
 </script>
 ```
 
-### 四 代码测试
+### 四 代码测试 
 
 ```javascript
 npm i serve -g // 全局安装 serve
