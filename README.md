@@ -95,7 +95,7 @@ module.exports = {
   publicPath: '/',
   // 不同的环境打不同包名
   outputDir: process.env.NODE_ENV === "development" ? 'devdist' : 'dist', 
-  lintOnSave: false,  // 关闭eslint
+  lintOnSave: false,  // 关闭eslint，避免在保存的时候出现“component has been registered but not used” 等相关错误
   productionSourceMap: true,  // 生产环境下css 分离文件
   devServer: {   // 配置服务器
     port: 8086,
